@@ -43,6 +43,7 @@ namespace :deploy do
   task :initial do
     on roles(:app) do
       before 'deploy:restart', 'puma:start'
+      run "ln -nfs #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
       invoke 'deploy'
     end
   end
