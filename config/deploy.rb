@@ -66,7 +66,7 @@ end
 desc 'Create the symlink for database configuration'
 task :config_symlink do
   on roles (:app) do
-    run "ln -nfs /home/#{user}/#{shared_directory}/config/database.yml /home/#{user}/#{current_directory}/config/database.yml"
+    run "ln -nfs /home/arariel/#{shared_directory}/config/database.yml /home/arariel/#{current_directory}/config/database.yml"
   end
 end
 # ps aux | grep puma    # Get puma pid
