@@ -12,5 +12,7 @@ require 'capistrano/puma'
 require 'capistrano/scm/git'
 install_plugin Capistrano::Puma
 install_plugin Capistrano::SCM::Git
+require 'capistrano/maintenance'
+require 'capistrano-db-tasks'
 
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

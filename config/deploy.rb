@@ -56,9 +56,6 @@ namespace :deploy do
     end
   end
 
-  task :config_symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
@@ -66,6 +63,9 @@ namespace :deploy do
   after  :finishing,    :restart
 end
 
+task :config_symlink do
+  run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+end
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
 # kill -s SIGTERM pid   # Stop puma
