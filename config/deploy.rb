@@ -15,6 +15,8 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails puma}
 set :rbenv_roles, :all # default value
 
+before "deploy:assets:precompile", "config_symlink"
+
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
@@ -44,7 +46,6 @@ namespace :deploy do
     on roles(:app) do
       before 'deploy:restart', 'puma:start'
       invoke 'deploy'
-      run "ln -nfs #{shared_path}/config/database.yml #{current_directory}/config/database.yml"
     end
   end
 
@@ -53,6 +54,10 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       invoke 'puma:restart'
     end
+  end
+
+  task :config_symlink do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
 
   before :starting,     :check_revision
