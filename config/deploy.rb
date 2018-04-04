@@ -65,7 +65,7 @@ end
 
 desc 'Create the symlink for database configuration'
 task :config_symlink do
-  invoke "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
 end
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
