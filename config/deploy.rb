@@ -15,7 +15,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails puma}
 set :rbenv_roles, :all # default value
 
-before "deploy:assets:precompile", "config_symlink"
+set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -63,10 +63,10 @@ namespace :deploy do
   after  :finishing,    :restart
 end
 
-desc 'Create the symlink for database configuration'
-task :config_symlink do
-  "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-end
+# desc 'Create the symlink for database configuration'
+# task :config_symlink do
+#   "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+# end
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
 # kill -s SIGTERM pid   # Stop puma
