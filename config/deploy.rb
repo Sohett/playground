@@ -15,7 +15,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 # set :rbenv_map_bins, %w{rake gem bundle ruby rails puma}
 set :rbenv_roles, :all # default value
 
-set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
